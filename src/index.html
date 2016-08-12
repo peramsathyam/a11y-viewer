@@ -15,6 +15,12 @@
         (function () {
             var SUPPORTS_CLASSLIST = ('classList' in document.documentElement);
             var SUPPORTS_CSS_FILTERS = isCssPropertySupported(['filter', 'webkitFilter'], 'blur(1px)');
+            var IS_CAPABLE_BROWSER = (SUPPORTS_CLASSLIST && SUPPORTS_CSS_FILTERS);
+
+            if (IS_CAPABLE_BROWSER) {
+                document.documentElement.classList.add('is-enhanced');
+                document.write('<script src="index.js" defer><\/script>');
+            }
 
             function isCssPropertySupported(properties, value) {
                 return properties.some(function (property) {
@@ -25,13 +31,6 @@
                     document.head.removeChild(element);
                     return result;
                 });
-            }
-
-            var IS_CAPABLE_BROWSER = (SUPPORTS_CLASSLIST && SUPPORTS_CSS_FILTERS);
-
-            if (IS_CAPABLE_BROWSER) {
-                document.documentElement.classList.add('is-enhanced');
-                document.write('<script src="index.js" defer><\/script>');
             }
         }());
     </script>
